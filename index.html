@@ -11,13 +11,24 @@
 <body>
     <div class="container mt-5">
             <div class="header">
-                <select class="browser-default custom-select">
-                    <option value="" disabled selected>Choose your option</option>
+                <select class="browser-default custom-select" id="choose" class="form-control">
+                         <option value="" disabled selected>Choose your option</option>
                         <option value="1">Nom Pom</option>
                         <option value="2">Chocolate cake</option>
                         <option value="3">Avocado Shake(Toek KaLok)</option>
 
                 </select>
+            </div>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table table-borderless" id="result"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-3"></div>
@@ -26,7 +37,38 @@
                 </div>
                 <div class="col-3"></div>
             </div>
+            <!-- code button increces number -->
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-6">
+
+                    <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                    <button class="btn btn-danger" type="button" id="minusNumber">&#x2212;</button>
+                            </div>
+
+                            <input type="text" id="number" class="form-control text-center" value="0" disabled>
+
+                            <div class="input-group-append">
+                                    <button class="btn btn-success"type="button" id="addNumber">&#x2b;</button>
+                            </div>
+                    </div>
+                    <hr>
+                    <h2 class="display-1 text-center" id="show">0</h2>
+                </div>
+                <div class="col-3"></div>
+            </div> 
             
+    </div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="progress" style="height: 20px">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" id="progress"></div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 <!-- jQuery library -->
