@@ -33,6 +33,7 @@ function eachRecipe(id) {
             // console.warn(element);
             // showIngredient(element.ingredients);
             showIngredient(element);
+            showStep(element.instructions)
         }
     })
 }
@@ -42,7 +43,7 @@ function showRecipe(element) {
     result += `
         <div class="col-2"></div>
         <div class="col-4 mt-5"><h4>${name}</h4></div>
-        <div class="col-4"><img src="${iconUrl}"  style="width:200px; height:150px"></div>
+        <div class="col-4"><img src="${iconUrl}"  style="width:150px; height:150px"></div>
         <div class="col-2"></div>
     `;
     $('#nameOffood').html(result);
@@ -69,19 +70,34 @@ function showRecipe(element) {
 //     $('#recipe-result').html(incrdan);
 // }
 function showIngredient(ids) {
+    $("#texts").html("Instruction");
     var incrdan = "";
     ids.ingredients.forEach(element => {
         const{name,quantity,unit,iconUrl} = element;
         incrdan += `
                  <tr>
-                    <td><img src="${iconUrl}" class="img-fluit"  width="100px"></td>
+                    <td><img src="${iconUrl}" class="img-fluit"  width="80px"></td>
                     <br>
                     <br>
                     <td>${name}</td>
                     <td>${quantity}</td>
-                    <td>${unit}</td>
+                    <td>${unit[1]}</td>
                 </tr>
         `;
     });
     $('#recipe-result').html(incrdan);
 }
+//cut the step the text
+function showStep(step){
+    $("#text").html("Instruction");
+    var getStep = "";
+    var steps = step.split("<step>")
+    for (let j = 1; j < steps.length; j++){
+        getStep +=`
+         <p class="text-info"><strong>Step ${j}</strong></p>
+         <p>${steps[j]}</p>
+        `;
+    }
+    $("#step").html(getStep);
+    
+ }
