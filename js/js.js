@@ -2,6 +2,7 @@ function getUrl() {
     var url = "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
     return url;
 }
+
 $(document).ready(function () {
     getApi();
     $('#recipe').on('change', () => {
@@ -26,6 +27,8 @@ function chooseRecipe(recipe) {
     });
     $('#recipe').append(option);
 }
+$('#hide-show').hide();
+$('#ruler').hide();
 function eachRecipe(id) {
     allData.forEach(element => {
         if (element.id == id) {
@@ -36,9 +39,12 @@ function eachRecipe(id) {
             showStep(element.instructions)
         }
     })
+    $('#hide-show').show();
+    $('#ruler').show();
 }
+
 function showRecipe(element) {
-    const {name, iconUrl} = element;
+    const { name, iconUrl } = element;
     var result = "";
     result += `
         <div class="col-2"></div>
@@ -70,10 +76,11 @@ function showRecipe(element) {
 //     $('#recipe-result').html(incrdan);
 // }
 function showIngredient(ids) {
+    $("#nameNumber").html("Number of person");
     $("#texts").html("Instruction");
     var incrdan = "";
     ids.ingredients.forEach(element => {
-        const{name,quantity,unit,iconUrl} = element;
+        const { name, quantity, unit, iconUrl } = element;
         incrdan += `
                  <tr>
                     <td><img src="${iconUrl}" class="img-fluit"  width="80px"></td>
@@ -88,16 +95,53 @@ function showIngredient(ids) {
     $('#recipe-result').html(incrdan);
 }
 //cut the step the text
-function showStep(step){
+function showStep(step) {
     $("#text").html("Instruction");
     var getStep = "";
     var steps = step.split("<step>")
-    for (let j = 1; j < steps.length; j++){
-        getStep +=`
+    for (let j = 1; j < steps.length; j++) {
+        getStep += `
          <p class="text-info"><strong>Step ${j}</strong></p>
          <p>${steps[j]}</p>
         `;
     }
     $("#step").html(getStep);
-    
- }
+
+}
+
+//get the number increst and deincrest
+$('#minusNumber').on('click', function () {
+    var minus = $('#number').val();
+    minusNumbers(minus);
+    console.warn(minus);
+});
+
+$('#addNumber').on('click', function () {
+    var add = $('#number').val();
+    addNumber(add);
+    console.warn(add);
+
+});
+
+function minusNumbers(minus) {
+    var minuss = parseInt(minus) - 1;
+    if (minuss > 0) {
+        compute(minuss);
+    }
+    $('#number').val(minuss);
+}
+
+function addNumber(add) {
+    var addss = parseInt(add) + 1;
+    if (addss <= 15) {
+        $('#number').val(addss);
+        compute(addss);
+    }
+    $('#number').val(addss);
+
+}
+
+function compute(number) {
+    var result = number * 5;
+    $('#show').html(result);
+}
