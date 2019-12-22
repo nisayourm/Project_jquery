@@ -2,7 +2,6 @@ function getUrl() {
     var url = "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
     return url;
 }
-
 $(document).ready(function () {
     getApi();
     $('#recipe').on('change', () => {
@@ -27,7 +26,9 @@ function chooseRecipe(recipe) {
     });
     $('#recipe').append(option);
 }
-$('#hide-show').hide();
+//this variable for get old nbGuests
+var oldGuests = 0;
+var newGeusts = [];
 $('#ruler').hide();
 function eachRecipe(id) {
     allData.forEach(element => {
@@ -37,44 +38,43 @@ function eachRecipe(id) {
             // showIngredient(element.ingredients);
             showIngredient(element);
             showStep(element.instructions)
+            //show npG
+            nbGuest(element.nbGuests);
+            newGeusts = element;
+            oldGuests = element.nbGuests;
         }
     })
-    $('#hide-show').show();
+    $('#nameNumber').show();
     $('#ruler').show();
 }
-
 function showRecipe(element) {
     const { name, iconUrl } = element;
     var result = "";
     result += `
-        <div class="col-2"></div>
-        <div class="col-4 mt-5"><h4>${name}</h4></div>
-        <div class="col-4"><img src="${iconUrl}"  style="width:150px; height:150px"></div>
-        <div class="col-2"></div>
+
+       
+            <div class="col-4"></div>
+                <div class="col-2 mt-5">
+                </div>
+
+                <div class="col-4 card">
+
+                    <div class="card-header">
+                        <h4>${name}</h4>
+
+                    </div>
+                    
+                <div class="card-body">
+
+                    <img src="${iconUrl}"  style="width:150px; height:150px">
+                </div>
+            </div>
+            <div class="col-2"></div>
+      
     `;
     $('#nameOffood').html(result);
+
 }
-
-// function showIngredient(ing) {
-//     ing.forEach(element => {
-//         showIngredients(element);
-//     })
-// }
-// function showIngredients(ids) {
-//     var incrdan = "";
-//     incrdan += `
-//              <tr>
-//                 <td><img src="${ids.iconUrl}" class="img-fluit"  width="100px"></td>
-//                 <br>
-//                 <br>
-//                 <td>${ids.name}</td>
-//                 <td>${ids.quantity}</td>
-//                 <td>${ids.unit[0]}</td>
-
-//             </tr>
-//     `;
-//     $('#recipe-result').html(incrdan);
-// }
 function showIngredient(ids) {
     $("#nameNumber").html("Number of person");
     $("#texts").html("Instruction");
@@ -88,7 +88,7 @@ function showIngredient(ids) {
                     <br>
                     <td>${name}</td>
                     <td>${quantity}</td>
-                    <td>${unit[1]}</td>
+                    <td>${unit[0]}</td>
                 </tr>
         `;
     });
@@ -108,40 +108,79 @@ function showStep(step) {
     $("#step").html(getStep);
 
 }
+function nbGuest(nbGuests) {
+    var persons = "";
+    persons += `
+    
+    <div class="input-group mb-3">
+    <div class="input-group-append">
+        <button class="btn btn-danger" type="button" id="minusNumber" >&#x2212;</button>
+    </div>
 
-//get the number increst and deincrest
-$('#minusNumber').on('click', function () {
-    var minus = $('#number').val();
-    minusNumbers(minus);
-    console.warn(minus);
-});
+    <input type="text" id="number" class="form-control text-center" value="${nbGuests}" disabled>
 
-$('#addNumber').on('click', function () {
-    var add = $('#number').val();
-    addNumber(add);
-    console.warn(add);
+    <div class="input-group-append">
+        <button class="btn btn-success" type="button" id="addNumber">&#x2b;</button>
+    </div>
+</div>
 
-});
+</div>
 
-function minusNumbers(minus) {
-    var minuss = parseInt(minus) - 1;
-    if (minuss > 0) {
-        compute(minuss);
-    }
-    $('#number').val(minuss);
+    `;
+    $('#condition').html(persons);
+
+    //get the number increst and deincrest
+    $('#minusNumber').on('click', function () {
+        var minuses = parseInt($('#number').val());
+        minus(minuses);
+
+    });
+
+
+    $('#addNumber').on('click', function () {
+        var added = parseInt($('#number').val());
+        increas(added);
+    });
 }
 
-function addNumber(add) {
-    var addss = parseInt(add) + 1;
-    if (addss <= 15) {
-        $('#number').val(addss);
-        compute(addss);
+//for decreas number
+function minus(minusMyNumber) {
+    var myNumber = parseInt(minusMyNumber) - 1;
+    if (myNumber > 0) {
+        $('#number').val(myNumber);
+        getPeson($('#number').val());
     }
-    $('#number').val(addss);
-
 }
 
-function compute(number) {
-    var result = number * 5;
-    $('#show').html(result);
+//for increas number
+function increas(add) {
+    var number = parseInt(add) + 1;
+    if (number <= 15) {
+        $('#number').val(number);
+        getPeson($('#number').val());
+    }
+}
+
+//for ngGuests person
+
+function getPeson(people) {
+    var getquanties = "";
+    var newQuanties = "";
+    var result = "";
+    newGeusts.ingredients.forEach(element => {
+        const { name, quantity, unit, iconUrl } = element;
+        getquanties = people * quantity;
+        newQuanties = getquanties / oldGuests;
+        result += `     
+        <tr>
+        <td><img src="${iconUrl}" class="img-fluit"  width="80px"></td>
+        <br>
+        <br>
+        <td>${name}</td>
+        <td>${newQuanties}</td>
+        <td>${unit[0]}</td>
+    </tr>
+        `
+    });
+    $('#recipe-result').html(result);
 }
