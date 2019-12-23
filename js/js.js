@@ -21,6 +21,7 @@ function getApi() {
 
 var allData = [];
 function chooseRecipe(recipe) {
+    // console.log(recipe)
     allData = recipe;
     var option = "";
     recipe.forEach(element => {
@@ -37,7 +38,6 @@ function eachRecipe(id) {
     allData.forEach(element => {
         if (element.id == id) {
             showRecipe(element);
-            // console.warn(element);
             // showIngredient(element.ingredients);
             showIngredient(element);
             showStep(element.instructions)
@@ -56,31 +56,36 @@ function showRecipe(element) {
     var result = "";
     result += `
             <div class="col-4"></div>
-                <div class="col-2 mt-5">
+                <div class="col-4 mt-5">
                 </div>
 
                 <div class="col-4 card">
 
                     <div class="card-header">
                         <h4>${name}</h4>
-
                     </div>
                     
-                <div class="card-body">
-
-                    <img src="${iconUrl}" style="width:150px; height:150px">
+                    <div class="card-body">
+                        <img src="${iconUrl}" style="width:310px; height:250px">
+                    </div>
+                    <div class="card-footer">
+                   
                 </div>
+
+                </div>
+            <div class="col-2">
+            
             </div>
-            <div class="col-2"></div>
 
     `;
     $('#nameOffood').html(result);
 
 }
+$('#showinterface').hide();
 
 function showIngredient(ids) {
     $("#nameNumber").html("Number of person");
-    $("#texts").html("Instruction");
+    $("#texts").html("Ingredients");
     var incrdan = "";
     ids.ingredients.forEach(element => {
         const { name, quantity, unit, iconUrl } = element;
@@ -96,6 +101,7 @@ function showIngredient(ids) {
         `;
     });
     $('#recipe-result').html(incrdan);
+    $('#showinterface').show();
 }
 
 //cut the step the text
@@ -166,7 +172,6 @@ function increas(add) {
 }
 
 //for ngGuests person
-
 function getPeson(people) {
     var getquanties = "";
     var newQuanties = "";

@@ -9,77 +9,124 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <style>
-    .rulers{
-        border-left: 2px solid blue;
+    .rulers {
+        border-left: 2px solid rgb(51, 51, 80);
         height: 80%;
         position: absolute;
         left: 48%;
+        top: 35px;
     }
-    body {
-        /* background-image: url('1.jpg'), url("paper.gif");
-        background-size:cover; */
-        background:peachpuff;
+
+    #image {
+        background-image: url('2.png');
+        background-size: cover;
+
     }
-   
+
+    .card {
+        background: rgb(104, 119, 78);
+    }
+
+    #nameNumber {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 25px;
+    }
+
+    #button {
+        margin-left: 16%;
+
+    }
+
+    #texts {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #text {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #step {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 17px;
+    }
+
+    #recipe-result {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 17px;
+    }
 </style>
 
-<body>
+<body id="image">
+    <!-- button for select the food -->
     <div class="container mt-5">
         <div class="row">
             <div class="col-4"></div>
             <div class="col-4">
+                <!-- select id -->
                 <select id="recipe" class="form-control">
                     <option value="" disabled selected>Choose recipe</option>
                 </select>
             </div>
             <div class="col-4"></div>
-           
+
         </div>
     </div>
 
-    <!-- The button increst number  -->
-    <div class="container mt-3">
+    <!-- It is the show about food   -->
+    <div class="container mt-3 text-white">
+        <!-- recipe id -->
         <div class="row " id="nameOffood">
-            
         </div>
-       
+
     </div>
 
-     <!-- The button increst number -->
+    <!-- The button increst number -->
     <div class="container mt-5">
-        <div class="row">
+        <!-- style button -->
+        <div class="row" id="button">
             <div class="col-3">
-                <h5 id="nameNumber" ></h5>
+                <!-- style ingredients -->
+                <h5 id="nameNumber" class="text-white"></h5>
             </div>
+            <!-- show or hide of button add members -->
             <div class="col-3" id="condition">
-                   
-            <div class="col-6"></div>
-        </div>
-    </div>
 
-     <!-- code get the incredan -->
-    <div class="container">
-        <div class="row">
-            <div class="col-6 info">
-                    <h3 id="texts" class="text-center"></h3>
-                    <br>
-                    <br>
-                <table class="table table-borderless" id="recipe-result">
-                </table>
+                <div class="col-6"></div>
             </div>
-
-            <div class="rulers" id="ruler"></div>
-            <div class="col-6 ">
-                    <h3 id="text" class="text-center "></h3>
-                    <br>
-                    <br>
-                <div id="step"></div>
-            </div>
-           
         </div>
-    </div>
-    <!-- code add -->
-   
+
+        <!-- code get the incredan and step-->
+        <div class="container">
+            <!-- id show hide code on card -->
+            <div class="card" id="showinterface">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <!-- id show about text ingredients -->
+                            <h3 id="texts" class="text-center text-white"></h3>
+                            <br>
+                            <br>
+                            <!-- code for get the ingredients form api -->
+                            <table class="table table-borderless text-white" id="recipe-result">
+                            </table>
+                        </div>
+                            <!-- put the rulers  -->
+                        <div class="rulers" id="ruler"></div>
+                        <div class="col-6 ">
+                           <!-- id show about text Instruction -->
+                            <h3 id="text" class="text-center text-white"></h3>
+                            <br>
+                            <br>
+                             <!-- code for get the step form api -->
+                            <div id="step" class="text-white"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- code add -->
+
 
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
