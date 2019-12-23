@@ -7,16 +7,18 @@ $(document).ready(function () {
     $('#recipe').on('change', () => {
         var recipesId = $('#recipe').val();
         eachRecipe(recipesId);
-    })
-})
+    });
+});
+
 function getApi() {
     $.ajax({
         dataType: 'json',
         url: getUrl(),
         success: (data) => chooseRecipe(data.recipes),
         error: () => console.log("Canot get data"),
-    })
+    });
 }
+
 var allData = [];
 function chooseRecipe(recipe) {
     allData = recipe;
@@ -26,6 +28,7 @@ function chooseRecipe(recipe) {
     });
     $('#recipe').append(option);
 }
+
 //this variable for get old nbGuests
 var oldGuests = 0;
 var newGeusts = [];
@@ -43,16 +46,15 @@ function eachRecipe(id) {
             newGeusts = element;
             oldGuests = element.nbGuests;
         }
-    })
+    });
     $('#nameNumber').show();
     $('#ruler').show();
 }
+
 function showRecipe(element) {
     const { name, iconUrl } = element;
     var result = "";
     result += `
-
-       
             <div class="col-4"></div>
                 <div class="col-2 mt-5">
                 </div>
@@ -66,15 +68,16 @@ function showRecipe(element) {
                     
                 <div class="card-body">
 
-                    <img src="${iconUrl}"  style="width:150px; height:150px">
+                    <img src="${iconUrl}" style="width:150px; height:150px">
                 </div>
             </div>
             <div class="col-2"></div>
-      
+
     `;
     $('#nameOffood').html(result);
 
 }
+
 function showIngredient(ids) {
     $("#nameNumber").html("Number of person");
     $("#texts").html("Instruction");
@@ -94,6 +97,7 @@ function showIngredient(ids) {
     });
     $('#recipe-result').html(incrdan);
 }
+
 //cut the step the text
 function showStep(step) {
     $("#text").html("Instruction");
@@ -108,24 +112,25 @@ function showStep(step) {
     $("#step").html(getStep);
 
 }
+
 function nbGuest(nbGuests) {
     var persons = "";
     persons += `
     
     <div class="input-group mb-3">
-    <div class="input-group-append">
-        <button class="btn btn-danger" type="button" id="minusNumber" >&#x2212;</button>
+
+        <div class="input-group-append">
+            <button class="btn btn-danger" type="button" id="minusNumber" >&#x2212;</button>
+        </div>
+
+         <input type="text" id="number" class="form-control text-center" value="${nbGuests}" disabled>
+
+        <div class="input-group-append">
+            <button class="btn btn-success" type="button" id="addNumber">&#x2b;</button>
+        </div>
+        
     </div>
-
-    <input type="text" id="number" class="form-control text-center" value="${nbGuests}" disabled>
-
-    <div class="input-group-append">
-        <button class="btn btn-success" type="button" id="addNumber">&#x2b;</button>
-    </div>
-</div>
-
-</div>
-
+        
     `;
     $('#condition').html(persons);
 
@@ -135,7 +140,6 @@ function nbGuest(nbGuests) {
         minus(minuses);
 
     });
-
 
     $('#addNumber').on('click', function () {
         var added = parseInt($('#number').val());
