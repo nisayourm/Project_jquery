@@ -1,7 +1,9 @@
+//get url form api 
 function getUrl() {
     var url = "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
     return url;
 }
+// for select the number 
 $(document).ready(function () {
     getApi();
     $('#recipe').on('change', () => {
@@ -9,7 +11,7 @@ $(document).ready(function () {
         eachRecipe(recipesId);
     });
 });
-
+//gie data form api
 function getApi() {
     $.ajax({
         dataType: 'json',
@@ -18,10 +20,10 @@ function getApi() {
         error: () => console.log("Canot get data"),
     });
 }
-
+//array can call and use it
 var allData = [];
 function chooseRecipe(recipe) {
-    // console.log(recipe)
+    // select the id and name form api
     allData = recipe;
     var option = "";
     recipe.forEach(element => {
@@ -33,12 +35,12 @@ function chooseRecipe(recipe) {
 //this variable for get old nbGuests
 var oldGuests = 0;
 var newGeusts = [];
+//hide the ruler
 $('#ruler').hide();
 function eachRecipe(id) {
     allData.forEach(element => {
         if (element.id == id) {
             showRecipe(element);
-            // showIngredient(element.ingredients);
             showIngredient(element);
             showStep(element.instructions)
             //show npG
@@ -47,10 +49,10 @@ function eachRecipe(id) {
             oldGuests = element.nbGuests;
         }
     });
-    $('#nameNumber').show();
+    //show ruler
     $('#ruler').show();
 }
-
+//showRecipe name and iconUrl
 function showRecipe(element) {
     const { name, iconUrl } = element;
     var result = "";
@@ -59,14 +61,14 @@ function showRecipe(element) {
                 <div class="col-4 mt-5">
                 </div>
 
-                <div class="col-4 card">
+                <div class="col-4 card"  style="right:15%;">
 
                     <div class="card-header">
                         <h4>${name}</h4>
                     </div>
                     
-                    <div class="card-body">
-                        <img src="${iconUrl}" style="width:310px; height:250px">
+                    <div class="card-body" >
+                        <img src="${iconUrl}" style="width:310px; height:250px;left:100%;">
                     </div>
                     <div class="card-footer">
                    
@@ -81,10 +83,10 @@ function showRecipe(element) {
     $('#nameOffood').html(result);
 
 }
+//hide the card to interface
 $('#showinterface').hide();
-
+//get showIngredient form api to Interface
 function showIngredient(ids) {
-    $("#nameNumber").html("Number of person");
     $("#texts").html("Ingredients");
     var incrdan = "";
     ids.ingredients.forEach(element => {
@@ -100,7 +102,9 @@ function showIngredient(ids) {
                 </tr>
         `;
     });
+    //show it in interface
     $('#recipe-result').html(incrdan);
+    //show card to interface
     $('#showinterface').show();
 }
 
@@ -122,9 +126,17 @@ function showStep(step) {
 function nbGuest(nbGuests) {
     var persons = "";
     persons += `
-    
-    <div class="input-group mb-3">
 
+        <div class = "card"  style="right:150%; bottom:236%">
+            <div class = "card-header ">
+        <h4 class="text-center text-white">Number of person</h4>
+
+    </div>
+    
+    <div class = "card-body">
+        
+    <div class="input-group mb-3"">
+                
         <div class="input-group-append">
             <button class="btn btn-danger" type="button" id="minusNumber" >&#x2212;</button>
         </div>
@@ -135,6 +147,10 @@ function nbGuest(nbGuests) {
             <button class="btn btn-success" type="button" id="addNumber">&#x2b;</button>
         </div>
         
+    </div>
+    </div>
+    <div class = "card-footer ">
+    </div>
     </div>
         
     `;
@@ -171,7 +187,7 @@ function increas(add) {
     }
 }
 
-//for ngGuests person
+//for ngGuests person and sum the number of the person
 function getPeson(people) {
     var getquanties = "";
     var newQuanties = "";
